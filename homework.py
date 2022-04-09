@@ -24,6 +24,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65
     M_IN_KM = 1000
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -93,6 +94,7 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP = 1.38
+
     def __init__(self, action: int,
                  duration: float,
                  weight: float,
@@ -109,9 +111,10 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
         colories_coef_1 = 1.1
+
         colories_coef_2 = 2
-        colories = ((self.get_mean_speed() + colories_coef_1) *
-                    colories_coef_2 * self.weight)
+        colories = ((self.get_mean_speed() + colories_coef_1)
+                    * colories_coef_2 * self.weight)
         return colories
 
 
