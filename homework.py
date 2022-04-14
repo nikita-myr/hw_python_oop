@@ -1,4 +1,5 @@
 from dataclasses import asdict, dataclass
+from typing import Callable, Dict
 
 
 @dataclass
@@ -22,9 +23,9 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
-    LEN_STEP = 0.65
-    M_IN_KM = 1000
-    M_IN_H = 60
+    LEN_STEP: float = 0.65
+    M_IN_KM: int = 1000
+    M_IN_H: int = 60
 
     def __init__(self,
                  action: int,
@@ -47,7 +48,7 @@ class Training:
         """Получить количество затраченных калорий."""
         raise NotImplementedError(f'Переопроедлите метод '
                                   f'get_spent_calories в '
-                                  f'{type(self).name}')
+                                  f'{type(self).__name__}')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -61,8 +62,8 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    CALORIE_COEF_1 = 18
-    CALORIE_COEF_2 = 20
+    CALORIE_COEF_1: int = 18
+    CALORIE_COEF_2: int = 20
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         super().__init__(action, duration, weight)
@@ -76,9 +77,9 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    CALORIE_COEF_1 = 2
-    CALORIE_COEF_2 = 0.029
-    CALORIE_COEF_3 = 0.035
+    CALORIE_COEF_1: int = 2
+    CALORIE_COEF_2: float = 0.029
+    CALORIE_COEF_3: float = 0.035
 
     def __init__(self, action: int,
                  duration: float,
@@ -99,7 +100,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    LEN_STEP = 1.38
+    LEN_STEP: float = 1.38
 
     def __init__(self, action: int,
                  duration: float,
@@ -123,10 +124,10 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    reader = {'SWM': Swimming,
-              'RUN': Running,
-              'WLK': SportsWalking
-              }
+    reader: Dict[str, Callable] = {'SWM': Swimming,
+                                   'RUN': Running,
+                                   'WLK': SportsWalking
+                                   }
     if workout_type not in reader:
         raise ValueError('ПРОВЕРЬТЕ ВВОДНЫЕ ДАННЫЕ')
     else:
