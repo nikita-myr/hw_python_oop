@@ -116,10 +116,10 @@ class Swimming(Training):
                 / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
-        colories_coef_1 = 1.1
-        colories_coef_2 = 2
-        return ((self.get_mean_speed() + colories_coef_1)
-                * colories_coef_2 * self.weight)
+        CALORIE_COEF_1: float = 1.1
+        CALORIE_COEF_2: int = 2
+        return ((self.get_mean_speed() + CALORIE_COEF_1)
+                * CALORIE_COEF_2 * self.weight)
 
 
 def read_package(workout_type: str, data: list) -> Training:
