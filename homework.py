@@ -101,6 +101,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
+    CALORIE_COEF_1: float = 1.1
+    CALORIE_COEF_2: int = 2
 
     def __init__(self, action: int,
                  duration: float,
@@ -116,10 +118,8 @@ class Swimming(Training):
                 / self.M_IN_KM / self.duration)
 
     def get_spent_calories(self) -> float:
-        CALORIE_COEF_1: float = 1.1
-        CALORIE_COEF_2: int = 2
-        return ((self.get_mean_speed() + CALORIE_COEF_1)
-                * CALORIE_COEF_2 * self.weight)
+        return ((self.get_mean_speed() + self.CALORIE_COEF_1)
+                * self.CALORIE_COEF_2 * self.weight)
 
 
 def read_package(workout_type: str, data: list) -> Training:
